@@ -1,0 +1,70 @@
+/* General Styling */
+.library-info {
+    max-width: 900px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    animation: fadeIn 1.5s ease;
+}
+
+h2 {
+    font-size: 2rem;
+    color: #34495e;
+    margin-top: 30px;
+}
+
+/* p, ul {
+    color: #555;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+/* List Styling */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.05);
+} */
+
+/* Applying Animations */
+.fade-in {
+    animation: fadeIn 1.5s ease;
+}
+
+.slide-in-left {
+    animation: slideInLeft 1.5s ease;
+}
+
+.slide-in-right {
+    animation: slideInRight 1.5s ease;
+}
+
+.fade-in-up {
+    animation: fadeInUp 1.5s ease;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+

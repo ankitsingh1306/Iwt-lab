@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz - Pathshala Library</title>
+    <link rel="stylesheet" href="./Assests/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body style="background-color: #b8c6db; background-image: linear-gradient(315deg, #b8c6db 0%, #f5f7fa 100%); font-family: 'Poppins', sans-serif;">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+       <div class="container-fluid">
+           <img width="5%" height="auto" src="./Assests/img/pllogorb.png" alt="Pathshala Library">
+           <a class="navbar-brand" href="index.php">Pathshala Library</a>
+           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+               <ul class="navbar-nav">
+                   <li class="nav-item">
+                       <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                   </li>
+                   <?php if(isset($_SESSION['user_id'])){ ?>
+                   <li class="nav-item">
+                       <a class="nav-link" href="./todolist.html">Todo List</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="./browsing.html">Browesing</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="./Ebook.html">EBooks</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="./focus.html">Focus</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="./calculator.html">Calculator</a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="./quiz.html">Quizs</a>
+                   </li>
+                   <?php }?>
+
+                   
+                   <li class="nav-item">
+                       <a class="nav-link" href="logout.php">logout</a>
+                   </li>
+                  
+                   
+                   <li class="nav-item">
+                       <a class="header__menu--link style2" href="my_account.php" style="position: fixed; right: 1rem; padding-top: 3%; transform: translateY(-50%);">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="30px" viewBox="0 0 512 512" >
+                               <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                               <path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                           </svg>
+                           <span class="visually-hidden">My Account</span>
+                       </a>
+
+                   </li>
+               </ul>
+           </div>
+       </div>
+   </nav>
+    <div id="quiz" style="background-color: #fff; border-radius: 10px; box-shadow: 0 0 10px 2px rgba(100, 100, 100, 0.1); max-width:600px;width: 100%; overflow: hidden; justify-content: center; justify-items: center; margin: 20px auto;">
+      <div class="quiz-header" style="padding: 4rem;">
+        <h2 id="question" style="padding: 1rem; text-align: center; margin: 0;">Question text</h2>
+        <ul style="list-style-type: none; padding: 0;">
+          <li style="font-size: 1.2rem; margin: 1rem 0;">
+            <input type="radio" name="answer" id="a" class="answer" />
+            <label for="a" id="a_text" style="cursor: pointer;">Option A</label>
+          </li>
+          <li style="font-size: 1.2rem; margin: 1rem 0;">
+            <input type="radio" name="answer" id="b" class="answer" />
+            <label for="b" id="b_text" style="cursor: pointer;">Option B</label>
+          </li>
+          <li style="font-size: 1.2rem; margin: 1rem 0;">
+            <input type="radio" name="answer" id="c" class="answer" />
+            <label for="c" id="c_text" style="cursor: pointer;">Option C</label>
+          </li>
+          <li style="font-size: 1.2rem; margin: 1rem 0;">
+            <input type="radio" name="answer" id="d" class="answer" />
+            <label for="d" id="d_text" style="cursor: pointer;">Option D</label>
+          </li>
+        </ul>
+      </div>
+      <button id="submit" style="background-color: #8e44ad; color: #fff; border: none; display: block; width: 100%; cursor: pointer; font-size: 1.1rem; font-family: inherit; padding: 1.3rem;">Submit</button>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        const quizData = [
+    {
+        question: "What is the time complexity of binary search algorithm?",
+        a: "O(n)",
+        b: "O(log n)",
+        c: "O(n log n)",
+        d: "O(n^2)",
+        correct: "b",
+    },
+    {
+        question: "Which sorting algorithm has the best average-case performance?",
+        a: "Bubble Sort",
+        b: "Merge Sort",
+        c: "Quick Sort",
+        d: "Selection Sort",
+        correct: "b",
+    },
+    {
+        question: "What is the output of 10 + '5' in JavaScript?",
+        a: "15",
+        b: "105",
+        c: "'15'",
+        d: "Error",
+        correct: "b",
+    },
+    {
+        question: "Which of the following is a valid way to declare an object in JavaScript?",
+        a: "let obj = {name: 'John', age: 30};",
+        b: "let obj = ['John', 30];",
+        c: "let obj = (name: 'John', age: 30);",
+        d: "let obj = <name: 'John', age: 30>;",
+        correct: "a",
+    },
+    {
+        question: "In which year was Python released?",
+        a: "1989",
+        b: "1991",
+        c: "1995",
+        d: "2000",
+        correct: "b",
+    },
+    {
+        question: "Which algorithm is used to find the shortest path in a graph?",
+        a: "Dijkstra's Algorithm",
+        b: "Merge Sort",
+        c: "Kruskal's Algorithm",
+        d: "Bubble Sort",
+        correct: "a",
+    },
+    {
+        question: "In HTML, what does the <canvas> element provide?",
+        a: "A drawing area for graphics",
+        b: "A text input field",
+        c: "A hyperlink",
+        d: "An embedded video",
+        correct: "a",
+    },
+    {
+        question: "Which is the largest ocean on Earth?",
+        a: "Indian Ocean",
+        b: "Atlantic Ocean",
+        c: "Arctic Ocean",
+        d: "Pacific Ocean",
+        correct: "d",
+    },
+    {
+        question: "Who is known as the father of Computer Science?",
+        a: "Bill Gates",
+        b: "Charles Babbage",
+        c: "Alan Turing",
+        d: "Steve Jobs",
+        correct: "c",
+    },
+    {
+        question: "What is the output of this JavaScript code: console.log(typeof null)?",
+        a: "'object'",
+        b: "'null'",
+        c: "'undefined'",
+        d: "'number'",
+        correct: "a",
+    },
+    {
+        question: "Which of the following data structures is used in implementing a recursive function?",
+        a: "Queue",
+        b: "Stack",
+        c: "Array",
+        d: "Linked List",
+        correct: "b",
+    },
+    {
+        question: "Which of the following is a NoSQL database?",
+        a: "MySQL",
+        b: "MongoDB",
+        c: "PostgreSQL",
+        d: "SQLite",
+        correct: "b",
+    },
+    {
+        question: "What is the time complexity of quicksort in the worst case?",
+        a: "O(n)",
+        b: "O(n log n)",
+        c: "O(n^2)",
+        d: "O(log n)",
+        correct: "c",
+    },
+    {
+        question: "Which HTML tag is used to define an unordered list?",
+        a: "<ul>",
+        b: "<ol>",
+        c: "<li>",
+        d: "<list>",
+        correct: "a",
+    },
+    {
+        question: "Which of the following is a client-side JavaScript framework?",
+        a: "Django",
+        b: "Node.js",
+        c: "React",
+        d: "Flask",
+        correct: "c",
+    },
+    {
+        question: "Which HTML attribute is used to define inline styles?",
+        a: "class",
+        b: "id",
+        c: "style",
+        d: "font",
+        correct: "c",
+    },
+    {
+        question: "Which company developed the React JavaScript library?",
+        a: "Google",
+        b: "Facebook",
+        c: "Microsoft",
+        d: "Apple",
+        correct: "b",
+    },
+    {
+        question: "Which symbol is used for comments in JavaScript?",
+        a: "//",
+        b: "/* */",
+        c: "#",
+        d: "<!-- -->",
+        correct: "a",
+    },
+    {
+        question: "Which CSS property is used to change the text color of an element?",
+        a: "background-color",
+        b: "color",
+        c: "font-color",
+        d: "text-color",
+        correct: "b",
+    },
+    {
+        question: "What does the acronym SQL stand for?",
+        a: "Structured Query Language",
+        b: "Simple Query Language",
+        c: "Sorted Query Language",
+        d: "Sequential Query Language",
+        correct: "a",
+    }
+];
+
+
+// Function to shuffle the questions
+function shuffleQuestions(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+const quiz = document.getElementById('quiz');
+const answerEls = document.querySelectorAll('.answer');
+const questionEl = document.getElementById('question');
+const a_text = document.getElementById('a_text');
+const b_text = document.getElementById('b_text');
+const c_text = document.getElementById('c_text');
+const d_text = document.getElementById('d_text');
+const submitBtn = document.getElementById('submit');
+
+let currentQuiz = 0;
+let score = 0;
+
+// Shuffle the quiz questions on page load
+shuffleQuestions(quizData);
+
+loadQuiz();
+
+function loadQuiz() {
+    deselectAnswers();
+
+    const currentQuizData = quizData[currentQuiz];
+
+    questionEl.innerText = currentQuizData.question;
+    a_text.innerText = currentQuizData.a;
+    b_text.innerText = currentQuizData.b;
+    c_text.innerText = currentQuizData.c;
+    d_text.innerText = currentQuizData.d;
+}
+
+function deselectAnswers() {
+    answerEls.forEach((answerEl) => (answerEl.checked = false));
+}
+
+function getSelected() {
+    let answer;
+
+    answerEls.forEach((answerEl) => {
+        if (answerEl.checked) {
+            answer = answerEl.id;
+        }
+    });
+
+    return answer;
+}
+
+submitBtn.addEventListener('click', () => {
+    const answer = getSelected();
+
+    if (answer) {
+        if (answer === quizData[currentQuiz].correct) {
+            score++;
+        }
+
+        currentQuiz++;
+
+        if (currentQuiz < quizData.length) {
+            loadQuiz();
+        } else {
+            quiz.innerHTML = `
+                <h2>You answered ${score}/${quizData.length} questions correctly</h2>
+
+                <button onclick="location.reload()">Reload</button>
+            `;
+        }
+    }
+});
+    </script>
+  </body>
+</html>

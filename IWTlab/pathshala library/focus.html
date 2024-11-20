@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Theme Clock</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      :root {
+        --primary-color: #000;
+        --secondary-color: #fff;
+      }
+
+      html {
+        transition: all 0.5s ease-in;
+      }
+
+      html.dark {
+        --primary-color: #fff;
+        --secondary-color: #333;
+      }
+
+      html.dark {
+        background-color: #111;
+        color: var(--primary-color);
+      }
+
+      body {
+        font-family: 'Heebo', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        overflow: hidden;
+        margin: 0;
+      }
+      .off{
+        cursor: pointer;
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        border: 0;
+        border-radius: 4px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 50px;
+      }
+
+      .toggle {
+        cursor: pointer;
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        border: 0;
+        border-radius: 4px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 90px;
+      }
+
+      .toggle:focus {
+        outline: none;
+      }
+
+      .clock-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .clock {
+        position: relative;
+        width: 200px;
+        height: 200px;
+      }
+
+      .needle {
+        background-color: var(--primary-color);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 65px;
+        width: 3px;
+        transform-origin: bottom center;
+        transition: all 0.5s ease-in linear;
+      }
+
+      .needle.hour {
+        transform: translate(-50%, -100%) rotate(0deg);
+      }
+
+      .needle.minute {
+        transform: translate(-50%, -100%) rotate(0deg);
+        height: 100px;
+      }
+
+      .needle.second {
+        transform: translate(-50%, -100%) rotate(0deg);
+        height: 100px;
+        background-color: #e74c3c;
+      }
+
+      .center-point {
+        background-color: #e74c3c;
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+      }
+
+      .center-point::after {
+        content: '';
+        background-color: var(--primary-color);
+        width: 5px;
+        height: 5px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+      }
+
+      .time {
+        font-size: 60px;
+      }
+
+      .date {
+        color: #aaa;
+        font-size: 14px;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+      }
+
+      .date .circle {
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        border-radius: 50%;
+        height: 18px;
+        width: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 18px;
+        transition: all 0.5s ease-in;
+        font-size: 12px;
+      }
+
+      /* Style for the quote */
+      .quote {
+        margin-top: 20px;
+        font-size: 18px;
+        text-align: center;
+        max-width: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <button class="toggle">Dark mode</button>
+    <a href="./index.php" class="off btn btn-primary">OFF FOCUS MODE</a>
+
+    <div class="clock-container">
+      <div class="clock">
+        <div class="needle hour"></div>
+        <div class="needle minute"></div>
+        <div class="needle second"></div>
+        <div class="center-point"></div>
+      </div>
+
+      <div class="time"></div>
+      <div class="date"></div>
+
+      <!-- Element to display the quote -->
+      <div class="quote"></div>
+    </div>
+
+    <script>
+      const hourEl = document.querySelector('.hour');
+      const minuteEl = document.querySelector('.minute');
+      const secondEl = document.querySelector('.second');
+      const timeEl = document.querySelector('.time');
+      const dateEl = document.querySelector('.date');
+      const toggle = document.querySelector('.toggle');
+      const quoteEl = document.querySelector('.quote');
+
+      const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+      const quotes = [
+        "Believe you can and you're halfway there.",
+        "Keep going. Everything you need will come to you at the perfect time.",
+        "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+        "Dream big and dare to fail.",
+        "Act as if what you do makes a difference. It does.",
+        "With the new day comes new strength and new thoughts.",
+        "The only limit to our realization of tomorrow is our doubts of today.",
+        "The secret of getting ahead is getting started.",
+        "Your time is limited, don't waste it living someone else's life.",
+        "The harder you work for something, the greater you’ll feel when you achieve it.",
+        "Do not wait to strike till the iron is hot, but make it hot by striking.",
+        "The only way to do great work is to love what you do.",
+        "Start where you are. Use what you have. Do what you can.",
+        "The best way to predict your future is to create it.",
+        "Do not watch the clock; do what it does. Keep going.",
+        "Failure will never overtake me if my determination to succeed is strong enough.",
+        "Success is the sum of small efforts, repeated day in and day out.",
+        "The road to success and the road to failure are almost exactly the same.",
+        "Believe in yourself and all that you are. Know that there is something inside you that is greater than any obstacle.",
+        "Opportunities don't happen, you create them."
+      ];
+
+      let quoteIndex = 0;
+
+      toggle.addEventListener('click', (e) => {
+        const html = document.querySelector('html');
+        if (html.classList.contains('dark')) {
+          html.classList.remove('dark');
+          e.target.innerHTML = 'Dark mode';
+        } else {
+          html.classList.add('dark');
+          e.target.innerHTML = 'Light mode';
+        }
+      });
+
+      function setTime() {
+        const time = new Date();
+        const month = time.getMonth();
+        const day = time.getDay();
+        const date = time.getDate();
+        const hours = time.getHours();
+        const hoursForClock = hours >= 13 ? hours % 12 : hours;
+        const minutes = time.getMinutes();
+        const seconds = time.getSeconds();
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hourEl.style.transform = `translate(-50%, -100%) rotate(${scale(hoursForClock, 0, 12, 0, 360)}deg)`;
+        minuteEl.style.transform = `translate(-50%, -100%) rotate(${scale(minutes, 0, 60, 0, 360)}deg)`;
+        secondEl.style.transform = `translate(-50%, -100%) rotate(${scale(seconds, 0, 60, 0, 360)}deg)`;
+
+        timeEl.innerHTML = `${hoursForClock}:${minutes < 10 ? `0${minutes}` : minutes} ${ampm}`;
+        dateEl.innerHTML = `${days[day]}, ${months[month]} <span class="circle">${date}</span>`;
+      }
+
+      // StackOverflow https://stackoverflow.com/questions/10756313/javascript-jquery-map-a-range-of-numbers-to-another-range-of-numbers
+      const scale = (num, in_min, in_max, out_min, out_max) => {
+        return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+      };
+
+      function changeQuote() {
+        quoteEl.innerHTML = quotes[quoteIndex];
+        quoteIndex = (quoteIndex + 1) % quotes.length;
+      }
+
+      setTime();
+      setInterval(setTime, 1000);
+      changeQuote();
+      setInterval(changeQuote, 5000); // Change quote every 5 seconds
+    </script>
+  </body>
+</html>

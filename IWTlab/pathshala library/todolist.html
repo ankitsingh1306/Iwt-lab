@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List - Pathshala Library</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            color: #444;
+            font-family: 'Poppins', sans-serif;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            transition: background-color 0.5s;
+        }
+
+        h1 {
+            color: rgb(179, 131, 226);
+            font-size: 10rem;
+            text-align: center;
+            opacity: 0.8;
+            transition: opacity 0.5s;
+        }
+
+        h3 {
+            color: rgb(179, 131, 226);
+            font-size: 4rem;
+            text-align: center;
+            opacity: 0.7;
+            margin-bottom: 30px;
+            transition: opacity 0.5s;
+        }
+
+        form {
+            margin-left: 350px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            max-width: 100%;
+            width: 600px;
+            padding: 20px;
+            background: white;
+        }
+
+        .input {
+            color: #a3a3a397;
+            font-size: 2rem;
+            padding: 1rem 2rem;
+            display: block;
+            width: 100%;
+            outline-color: rgb(179, 131, 226);
+            border-radius: 5px;
+            transition: border 0.3s;
+        }
+
+        .input:focus {
+            border: 2px solid rgb(179, 131, 226);
+            box-shadow: 0 0 5px rgb(179, 131, 226);
+        }
+
+        .todos {
+            background-color: #fff;
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+            border-radius: 5px;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .todos li {
+            border-top: 1px solid #e5e5e5;
+            cursor: pointer;
+            font-size: 1.5rem;
+            padding: 1rem 2rem;
+            transition: background-color 0.3s;
+        }
+
+        .todos li:hover {
+            background-color: rgba(179, 131, 226, 0.1);
+        }
+
+        .todos li.completed {
+            color: #b6b6b6;
+            text-decoration: line-through;
+            background-color: rgba(179, 131, 226, 0.2);
+        }
+
+        small {
+            color: #b5b5b5;
+            margin-top: 3rem;
+            text-align: center;
+            transition: opacity 0.5s;
+        }
+
+        h1:hover,
+        h3:hover {
+            opacity: 1;
+        }
+
+        small:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navpath">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <img width="5%" height="auto" src="./Assests/img/pllogorb.png" alt="Pathshala Library">
+                <a class="navbar-brand" href="#">Pathshala Library</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="index.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./todolist.html">Todo List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./browsing.html">Browsing</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./Ebook.html">EBooks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./focus.html">Focus</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./calculator.html">Calculator</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="header__menu--link style2" href="my-account.html"
+                                style="position: fixed; right: 1rem; padding-top: 3%; transform: translateY(-50%);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="30px" viewBox="0 0 512 512">
+                                    <path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none"
+                                        stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" />
+                                    <path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
+                                        fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" />
+                                </svg>
+                                <span class="visually-hidden">My Account</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="todoliststart">
+        <h1>ToDo List</h1>
+        <h3>Pathshala Library</h3>
+
+        <form id="forms">
+            <input type="text" class="input" id="input" placeholder="Add Your Today Task" autocomplete="off" />
+            <ul class="todos" id="todos"></ul>
+        </form>
+
+        <h3>Left click to mark Todo List completed. <br> Right click to delete Todo List.</h3>
+    </div>
+
+    <script>
+        const forms = document.getElementById('forms');
+    const input = document.getElementById('input');
+    const todosUL = document.getElementById('todos');
+
+    // Get existing todos from localStorage
+    const todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+    // Load todos into the UI
+    todos.forEach(todo => addTodo(todo.text, todo.completed));
+
+    forms.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const todoText = input.value.trim(); // Trim whitespaces
+
+        if (todoText) {
+            addTodo(todoText); // Only add valid input
+            input.value = ''; // Clear input field after adding
+        }
+    });
+
+    function addTodo(todoText, completed = false) {
+        const todoEl = document.createElement('li');
+
+        todoEl.innerText = todoText;
+        if (completed) {
+            todoEl.classList.add('completed');
+        }
+
+        todoEl.addEventListener('click', () => {
+            todoEl.classList.toggle('completed');
+            updateLS();
+        });
+
+        todoEl.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            todoEl.remove();
+            updateLS();
+        });
+
+        todosUL.appendChild(todoEl);
+        updateLS(); // Update local storage
+    }
+
+    function updateLS() {
+        const todosEl = document.querySelectorAll('li');
+        const todos = [];
+
+        todosEl.forEach(todoEl => {
+            todos.push({
+                text: todoEl.innerText,
+                completed: todoEl.classList.contains('completed')
+            });
+        });
+
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkm4z0Wzk6H0iQQ8Nhg6qcZf7qO6PU9BY1DqODs1AoqM2Zy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

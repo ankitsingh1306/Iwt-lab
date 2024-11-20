@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 320px;
+            margin-top: 30px;
+        }
+        .display {
+            background-color: #222;
+            color: #fff;
+            font-size: 2rem;
+            text-align: right;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            margin-top: 50px;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            font-size: 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .button.operator {
+            background-color: #f39c12;
+        }
+        .button.clear {
+            background-color: #e74c3c;
+        }
+        .button.equals {
+            background-color: #3498db;
+            grid-column: span 2;
+        }
+        .button.zero {
+            grid-column: span 2;
+        }
+        .off{
+        cursor: pointer;
+        background-color: var(--primary-color);
+        color: var(--secondary-color);
+        border: 0;
+        border-radius: 4px;
+        padding: 8px 12px;
+        position: absolute;
+        top: 50px;
+      }
+      .buttonn {
+            background-color: #ff8383;
+            color: white;
+            padding: 10px;
+            /* font-size: 1.5rem; */
+            /* border: aqua; */
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .buttonn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <a href="./index.php" class="off buttonn btn btn-primary">OFF CAL MODE</a>
+<div class="calculator">
+    <div class="display" id="display">0</div>
+    <div class="buttons">
+        <button class="button clear" onclick="clearDisplay()">C</button>
+        <button class="button" onclick="appendToDisplay('(')">(</button>
+        <button class="button" onclick="appendToDisplay(')')">)</button>
+        <button class="button operator" onclick="appendToDisplay('/')">/</button>
+        
+        <button class="button" onclick="appendToDisplay('7')">7</button>
+        <button class="button" onclick="appendToDisplay('8')">8</button>
+        <button class="button" onclick="appendToDisplay('9')">9</button>
+        <button class="button operator" onclick="appendToDisplay('*')">*</button>
+
+        <button class="button" onclick="appendToDisplay('4')">4</button>
+        <button class="button" onclick="appendToDisplay('5')">5</button>
+        <button class="button" onclick="appendToDisplay('6')">6</button>
+        <button class="button operator" onclick="appendToDisplay('-')">-</button>
+
+        <button class="button" onclick="appendToDisplay('1')">1</button>
+        <button class="button" onclick="appendToDisplay('2')">2</button>
+        <button class="button" onclick="appendToDisplay('3')">3</button>
+        <button class="button operator" onclick="appendToDisplay('+')">+</button>
+
+        <button class="button zero" onclick="appendToDisplay('0')">0</button>
+        <button class="button" onclick="appendToDisplay('.')">.</button>
+        <button class="button equals" onclick="calculateResult()">=</button>
+    </div>
+</div>
+
+<script>
+    const display = document.getElementById('display');
+
+    function appendToDisplay(value) {
+        if (display.innerText === '0' || display.innerText === 'Error') {
+            display.innerText = value;
+        } else {
+            display.innerText += value;
+        }
+    }
+
+    function clearDisplay() {
+        display.innerText = '0';
+    }
+
+    function calculateResult() {
+        try {
+            display.innerText = eval(display.innerText);
+        } catch (error) {
+            display.innerText = 'Error';
+        }
+    }
+
+    // Handle keyboard input
+    document.addEventListener('keydown', function(event) {
+        if ((event.key >= '0' && event.key <= '9') || event.key === '.' || event.key === '+' || event.key === '-' || event.key === '*' || event.key === '/') {
+            appendToDisplay(event.key);
+        } else if (event.key === 'Enter') {
+            calculateResult();
+        } else if (event.key === 'Backspace') {
+            display.innerText = display.innerText.slice(0, -1);
+            if (display.innerText === '') {
+                display.innerText = '0';
+            }
+        } else if (event.key === 'Escape') {
+            clearDisplay();
+        }
+    });
+</script>
+
+</body>
+</html>

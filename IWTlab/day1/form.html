@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="registration-container">
+        <div class="logo">
+            <img src="Logo.png" alt="Logo">
+           
+        </div>
+        <h2>Student Registration</h2>
+        <div class="container">
+           
+            <form>
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="date" name="dob" required>
+                <select name="gender" required>
+                    <option value="">Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                <select name="Course" required>
+                    <option value="">Course</option>
+                    <option value="1">Dept of CSE</option>
+                    <option value="2">Dept of CHM</option>
+                    <option value="3">Dept of Mathematics</option>
+                    <option value="4">Dept of Physics</option>
+                    <option value="5">Dept of Sociology</option>
+                    <option value="6">Dept of Psychology</option>
+                </select>
+                <select name="year" required>
+                    <option value="">Year of Study</option>
+                    <option value="1">1st Year</option>
+                    <option value="2">2nd Year</option>
+                    <option value="3">3rd Year</option>
+                    <option value="4">4th Year</option>
+                </select>
+                <textarea name="address" placeholder="Address" required></textarea>
+                <input type="text" name="department" placeholder="Department" required>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
